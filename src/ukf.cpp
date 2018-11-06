@@ -158,8 +158,8 @@ void UKF::Prediction(double delta_t) {
   P_aug(5,5) = std_a_*std_a_;
   P_aug(6,6) = std_yawdd_*std_yawdd_;
 
-  MatrixXd Xsig_aug = GenerateSigmaPoints(x_aug, P_aug, lambda_, n_sig_);
-  Xsig_pred_ = PredictSigmaPoints(Xsig_aug, delta_t, n_x_, n_sig_, std_a_, std_yawdd_);
+  MatrixXd Xsig_aug = SigmaMat(x_aug, P_aug, lambda_, n_sig_);
+  Xsig_pred_ = SigmaP(Xsig_aug, delta_t, n_x_, n_sig_, std_a_, std_yawdd_);
   x_ = Xsig_pred_ * weights_;
 
   P_.fill(0.0);
